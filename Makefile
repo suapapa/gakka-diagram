@@ -6,10 +6,10 @@ gakka.png: gakka.puml plantuml.jar
 gakka.svg: gakka.puml plantuml.jar
 	java -jar plantuml.jar -tsvg $^ $@
 
+PLANTUML_URL=http://cdnetworks-kr-1.dl.sourceforge.net/project/plantuml/plantuml.jar
 plantuml.jar:
-	@echo "ERR!! You need plantuml.jar"
-	@echo "visit http://plantuml.sourceforge.net/download.html to download"
-	exit 1
+	@wget -O $@ $(PLANTUML_URL) || curl -o $@ $(PLANTUML_URL) || \
+	echo "Couldn't download to plantuml.jar. Please install wget or curl"
 
 clean:
 	rm -f *.png *.svg
